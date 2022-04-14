@@ -1,15 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View, Text, TextInput } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import HeaderSide from './components/header/HeaderSide';
 import Todolist from './components/card/TodoList';
-import ButtonArea from './components/button/ButtonSave';
 
 const App = () => {
 
     const [todo, setTodo] = useState([]);
     const [counter, setCounter] = useState(0);
-
+    const [todoValue, setTodoValue] = useState('');
 
     useEffect(() => {
         const newTodoList = todo.filter(item => item.pressed === false);
@@ -43,21 +41,87 @@ const App = () => {
         setTodo(newTodo);
     };
 
+    const handleSubmit = () => {
+        const newTodo = {
+            id: new Date().getTime().toString(),
+            title: todoValue,
+            pressed: false,
+        };
+        setTodo([...todo, newTodo]);
+        setTodoValue('');
+    };
+
     return (
-        <View style={styles.view}>
-            <HeaderSide counter={counter} />
+        <View style={styles.headerContainer}>
+
+            <View style={styles.headerInnerContainer}>
+                <Text style={styles.header_text}>YAPILACAKLAR</Text>
+                <Text style={styles.header_text}>{counter}</Text>
+            </View>
+
             <FlatList data={todo} renderItem={renderList} />
-            <ButtonArea setTodo={setTodo} todo={todo} />
+
+            <View style={styles.footerContainer}>
+                <TextInput
+                    placeholder="Yapılacak..."
+                    style={styles.text_input}
+                    value={todoValue}
+                    onChangeText={setTodoValue}
+                    placeholderTextColor="#808080"
+                />
+                <TouchableOpacity style={styles.saveButtonContainer} onPress={handleSubmit}>
+                    <Text style={styles.buttonText}>Kaydet</Text>
+                </TouchableOpacity>
+            </View>
+
         </View>
     );
 };
-
 export default App;
 
 const styles = StyleSheet.create({
-    view: {
+    // Header Style
+    headerContainer: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#4C68A3',
+        backgroundColor: '#102027',
+        paddingTop: 20,
+    },
+    headerInnerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        paddingBottom: 30,
+        margin: 5,
+        marginTop: 0,
+    },
+    header_text: {
+        color: '#FFA500',
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+    // Footer Style
+    footerContainer: {
+        flexDirection: 'column',
+        margin: 10,
+        backgroundColor: '#37474F',
+        borderColor: '#A5CBDF',
+        borderRadius: 8,
+        padding: 5,
+    },
+    saveButtonContainer:{
+        borderRadius: 15,
+        backgroundColor: '#FFA500',
+        padding: 10,
+        margin: 10,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#FFFFFF',
+    },
+    text_input: {
+        borderBottomWidth: 1,
+        borderColor: '#78909C',
+        color: '#FFFFFF',
     },
 });

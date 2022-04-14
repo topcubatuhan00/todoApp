@@ -21,7 +21,7 @@ export default ToDoList;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#73C573',
+        backgroundColor: '#7DA453',
         padding: 10,
         marginHorizontal: 10,
         marginVertical: 5,
@@ -30,20 +30,19 @@ const styles = StyleSheet.create({
     text: {
         paddingLeft: 5,
         paddingBottom: 2,
-        fontSize: 20,
-        color: 'white',
+        fontSize: 18,
+        color: '#FFFFFF',
     },
     containerPress: {
-        backgroundColor: '#517077',
+        backgroundColor: '#37474F',
         padding: 10,
         marginHorizontal: 10,
         marginVertical: 5,
         borderRadius: 10,
     },
     textPress: {
-        fontSize: 20,
-        color: '#C4CBD6CC',
+        fontSize: 18,
+        color: '#808080',
         textDecorationLine: 'line-through',
-        fontStyle: 'italic',
     },
 });
